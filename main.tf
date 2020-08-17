@@ -1,5 +1,9 @@
 provider "aws" {
   region     = "${var.aws_region}"
+  skip_credentials_validation = true
+
+  access_key                  = "mock_access_key"
+  secret_key                  = "mock_secret_key"
 }
 
 data "aws_caller_identity" "current" { }
