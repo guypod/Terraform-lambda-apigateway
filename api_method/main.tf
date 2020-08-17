@@ -6,6 +6,12 @@ resource "aws_api_gateway_method" "request_method" {
   authorization = "NONE"
 }
 
+resource "aws_cloudtrail" "insecure-logging" {
+  name           = "cloudtrail-logging"
+  s3_bucket_name = "my-cloudtrail-bucket"
+  enable_logging = false
+}
+
 # Example: GET /hello => POST lambda
 resource "aws_api_gateway_integration" "request_method_integration" {
   rest_api_id = "${var.rest_api_id}"
@@ -17,6 +23,8 @@ resource "aws_api_gateway_integration" "request_method_integration" {
   # AWS lambdas can only be invoked with the POST method
   integration_http_method = "POST"
 }
+
+
 
 # lambda => GET response
 resource "aws_api_gateway_method_response" "response_method" {
